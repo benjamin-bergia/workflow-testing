@@ -38,7 +38,7 @@ jobs:
           docker run -d
           --name nginx-local-service
           --cidfile nginx-local-service.cid
-          --network "${{ job.services.network }}"
+          --network "${{ job.container.network }}"
           nginx
 
       - name: curl
