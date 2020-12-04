@@ -1,0 +1,45 @@
+name: Docker networking
+
+
+on:
+  push:
+    branches: [master]
+
+
+jobs:
+  test:
+    name: Test
+    services:
+      nginx-service:
+        image: nginx
+      nginx-service-published:
+        image: nginx
+        ports:
+          - 8080:8080
+    steps:
+      - name: local nginx
+        run: >
+          docker run -d
+          --name nginx-local
+          --cidfile nginx-local.cid
+
+      - name: local nginx in host network
+        run: >
+          docker run -d
+          --name nginx-local-host
+          --cidfile nginx-local-host.cid
+          --network "host"
+
+      - name: local nginx in service network
+        run: >
+          docker run -d
+          --name nginx-local-service
+          --cidfile nginx-local-service.cid
+          --network "${{ job.services.network }}"
+
+      - name: curl
+        run: |
+          curl http://nginx-service:8080
+          curl http://nginx-service-published:8080
+          curl http://localhost:8080
+
