@@ -43,7 +43,27 @@ jobs:
 
       - name: curl
         run: |
-          curl http://nginx-service:8080 || true
-          curl http://nginx-service-published:8080 || true
-          curl http://localhost:8080 || true
+          docker run ubuntu curl http://nginx-service:8080
+          docker run ubuntu curl http://nginx-service-published:8080
+          docker run ubuntu curl http://localhost:8080
+          docker run ubuntu curl http://nginx-local:8080
+          docker run ubuntu curl http://nginx-local-host:8080
+          docker run ubuntu curl http://nginx-local-service:8080
 
+      - name: curl host
+        run: |
+          docker run --network "host" ubuntu curl http://nginx-service:8080
+          docker run --network "host" ubuntu curl http://nginx-service-published:8080
+          docker run --network "host" ubuntu curl http://localhost:8080
+          docker run --network "host" ubuntu curl http://nginx-local:8080
+          docker run --network "host" ubuntu curl http://nginx-local-host:8080
+          docker run --network "host" ubuntu curl http://nginx-local-service:8080
+
+      - name: curl service
+        run: |
+          docker run --network "${{ job.container.network }}" ubuntu curl http://nginx-service:8080
+          docker run --network "${{ job.container.network }}" ubuntu curl http://nginx-service-published:8080
+          docker run --network "${{ job.container.network }}" ubuntu curl http://localhost:8080
+          docker run --network "${{ job.container.network }}" ubuntu curl http://nginx-local:8080
+          docker run --network "${{ job.container.network }}" ubuntu curl http://nginx-local-host:8080
+          docker run --network "${{ job.container.network }}" ubuntu curl http://nginx-local-service:8080
