@@ -23,6 +23,7 @@ jobs:
           docker run -d
           --name nginx-local
           --cidfile nginx-local.cid
+          nginx
 
       - name: local nginx in host network
         run: >
@@ -30,6 +31,7 @@ jobs:
           --name nginx-local-host
           --cidfile nginx-local-host.cid
           --network "host"
+          nginx
 
       - name: local nginx in service network
         run: >
@@ -37,6 +39,7 @@ jobs:
           --name nginx-local-service
           --cidfile nginx-local-service.cid
           --network "${{ job.services.network }}"
+          nginx
 
       - name: curl
         run: |
