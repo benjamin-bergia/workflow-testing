@@ -37,6 +37,7 @@ jobs:
     name: Job D
     needs: job-a
     runs-on: ubuntu-latest
+    if: false
     env:
       NEEDS: ${{ toJson(needs) }}
     steps:
