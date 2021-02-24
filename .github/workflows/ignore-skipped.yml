@@ -16,6 +16,7 @@ jobs:
   job-b:
     name: Job B
     runs-on: ubuntu-latest
+    needs: job-a
     if: false
     steps:
       - run: true
@@ -23,44 +24,23 @@ jobs:
   job-c:
     name: Job C
     runs-on: ubuntu-latest
+    needs: job-a
     if: false
     steps:
       - run: true
 
   job-d:
     name: Job D
+    needs: job-a
     runs-on: ubuntu-latest
-    steps:
-      - run: exit 1
-
-  job-ab:
-    name: Job AB
-    runs-on: ubuntu-latest
-    needs: [ job-a, job-b ]
-    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
+    if: false
     steps:
       - run: true
 
-  job-bc:
-    name: Job BC
+  job-bcd:
+    name: Job bcd
     runs-on: ubuntu-latest
-    needs: [ job-b, job-c ]
-    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
-    steps:
-      - run: true
-
-  job-cd:
-    name: Job CD
-    runs-on: ubuntu-latest
-    needs: [ job-c, job-d ]
-    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
-    steps:
-      - run: true
-
-  job-ad:
-    name: Job AD
-    runs-on: ubuntu-latest
-    needs: [ job-a, job-d ]
+    needs: [ job-b, job-c, job-d ]
     if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
     steps:
       - run: true
@@ -68,14 +48,6 @@ jobs:
   job-e:
     name: Job E
     runs-on: ubuntu-latest
-    needs: job-bc
-    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
-    steps:
-      - run: true
-
-  job-f:
-    name: Job F
-    runs-on: ubuntu-latest
-    needs: job-bc
+    needs: job-bcd
     steps:
       - run: true

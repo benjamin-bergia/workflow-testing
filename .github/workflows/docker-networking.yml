@@ -3,7 +3,9 @@ name: Docker networking
 
 on:
   push:
-    branches: [master]
+    paths: [ '.github/workflows/docker-networking.yml' ]
+  pull_request:
+    paths: [ '.github/workflows/docker-networking.yml' ]
 
 env:
   CURL: curlimages/curl
