@@ -86,6 +86,16 @@ jobs:
     name: Job BCD 4
     runs-on: ubuntu-latest
     needs: [ job-b, job-c, job-d ]
+    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
+    env:
+      NEEDS: ${{ toJson(needs) }}
+    steps:
+      - run: echo "$NEEDS"
+
+  job-bcd5:
+    name: Job BCD 5
+    runs-on: ubuntu-latest
+    needs: [ job-b, job-c, job-d ]
     if: ${{ always() && !failure() && contains(needs.*.result, 'success') }}
     env:
       NEEDS: ${{ toJson(needs) }}
@@ -125,6 +135,16 @@ jobs:
 
   job-cde4:
     name: Job CDE 4
+    runs-on: ubuntu-latest
+    needs: [ job-c, job-d, job-e ]
+    if: ${{ always() && contains(needs.*.result, 'success') && !(contains(needs.*.result, 'failure')) }}
+    env:
+      NEEDS: ${{ toJson(needs) }}
+    steps:
+      - run: echo "$NEEDS"
+
+  job-cde5:
+    name: Job CDE 5
     runs-on: ubuntu-latest
     needs: [ job-c, job-d, job-e ]
     if: ${{ always() && !failure() && contains(needs.*.result, 'success') }}
