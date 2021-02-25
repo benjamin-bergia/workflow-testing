@@ -39,7 +39,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ${{ env.BUILD_DIR }}
-          restor-keys: |
+          restore-keys: |
             build-${{ github.sha }}-
 
       - shell: bash
