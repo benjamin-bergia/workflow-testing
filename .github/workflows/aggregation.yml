@@ -6,6 +6,9 @@ on:
   pull_request:
     paths: [ '.github/workflows/aggregation.yml' ]
 
+env:
+  ARTIFACT: artifact.bin
+
 jobs:
   build:
     runs-on: ${{ matrix.os }} 
@@ -21,12 +24,12 @@ jobs:
       - shell: bash
         run: |
           echo "Run your build command here"
-          echo "This is a fake ${{ matrix.os }} build artifact" >artifact.bin
+          echo "This is a fake ${{ matrix.os }} build artifact" >$ARTIFACT
 
       - uses: actions/upload-artifact@v2
         with:
           name: build-${{ matrix.os }}-${{ github.sha }}
-          path: artifact.bin
+          path: ${{ env.ARTIFACT }}
 
   publish:
     runs-on: ubuntu-latest
@@ -40,5 +43,5 @@ jobs:
         working-directory: artifacts
         run: |
           for i in $( ls ); do
-            cat $i
+            cat $i/$ARTIFACT
           done
