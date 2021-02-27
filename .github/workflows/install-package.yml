@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install runc
-      - use: docker://archlinux
+      - uses: docker://archlinux
         with:
           entrypoint: /usr/bin/bash
           args: -c 'pacman --noconfirm -Syu && pacman --noconfirm -S base-devel'
