@@ -7,7 +7,7 @@ on:
     paths: [ '.github/workflows/install-package.yml' ]
 
 jobs:
-  runs-on: ubuntu-latest
   install:
+    runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get install runc
