@@ -1,0 +1,12 @@
+name: 'Install package'
+
+on:
+  push:
+    paths: [ '.github/workflows/install-package.yml' ]
+  pull_request:
+    paths: [ '.github/workflows/install-package.yml' ]
+
+jobs:
+  install:
+    steps:
+      - run: sudo apt-get install runc
