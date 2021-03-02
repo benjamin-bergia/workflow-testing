@@ -19,3 +19,19 @@ jobs:
       database: ${{ matrix.database }}
     steps:
       - run: true
+
+  job-b:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        database:
+          - image: 'postgres:latest'
+            env:
+              POSTGRES_PASSWORD: 'test'
+          - image: 'mysql:latest'
+            env:
+              MYSQL_ROOT_PASSWORD: 'test'
+    services:
+      database: ${{ matrix.database }}
+    steps:
+      - run: true
