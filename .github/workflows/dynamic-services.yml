@@ -18,4 +18,4 @@ jobs:
     services:
       database: ${{ matrix.database }}
     steps:
-      - run: echo "${{ toJson(job.services) }}
+      - run: true
