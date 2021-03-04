@@ -1,0 +1,13 @@
+name: "${{ github.ref }} dynamic"
+
+on:
+  push:
+    paths: [ '.github/workflows/dynamic-name.yml' ]
+  pull_request:
+    paths: [ '.github/workflows/dynamic-name.yml' ]
+
+jobs:
+  job-a:
+    runs-on: ubuntu-latest
+    steps:
+      - run: true
