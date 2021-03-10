@@ -13,8 +13,11 @@ jobs:
       test: ${{ env.TEST }}
     env:
       TEST: 'hello'
+      TEST2: ${{ TEST }}
     steps:
-      - run: echo $TEST
+      - run: |
+          echo "TEST: $TEST"
+          echo "TEST2: $TEST2"
 
   job-b:
     runs-on: ubuntu-latest
